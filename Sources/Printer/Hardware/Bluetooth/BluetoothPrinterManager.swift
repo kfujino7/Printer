@@ -52,6 +52,12 @@ public struct BluetoothPrinter {
         return state == .connecting
     }
 
+    public init(_ identifier:UUID, name:String) {
+        self.identifier = identifier
+        self.name = name
+        self.state = .disconnected
+    }
+    
     init(_ peripheral: CBPeripheral) {
 
         self.name = peripheral.name
