@@ -12,6 +12,7 @@ public struct Ticket {
     
     public var feedLinesOnTail: UInt8 = 3
     public var feedLinesOnHead: UInt8 = 0
+    public var paperCut = false
     
     private var blocks = [Block]()
     
@@ -33,6 +34,10 @@ public struct Ticket {
         
         if feedLinesOnTail > 0 {
             ds.append(Data(esc_pos: .printAndFeed(lines: feedLinesOnTail)))
+        }
+        
+        if paperCut {
+            ds.append(Data(esc_pos: ESC_POSCommand(rawValue: [27, 105])))
         }
         
         return ds
