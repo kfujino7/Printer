@@ -13,6 +13,7 @@ public struct Ticket {
     public var feedLinesOnTail: UInt8 = 3
     public var feedLinesOnHead: UInt8 = 0
     public var paperCut = false
+    public var drawerOpen = false
     
     private var blocks = [Block]()
     
@@ -38,6 +39,10 @@ public struct Ticket {
         
         if paperCut {
             ds.append(Data(esc_pos: ESC_POSCommand(rawValue: [27, 105])))
+        }
+        
+        if drawerOpen {
+            ds.append(Data(esc_pos: ESC_POSCommand(rawValue: [27, 112, 0, 25, 250])))
         }
         
         return ds
